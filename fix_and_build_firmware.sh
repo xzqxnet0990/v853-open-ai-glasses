@@ -71,9 +71,20 @@ echo ""
 
 cd "$SDK_PATH"
 source build/envsetup.sh
-lunch v853-100ask-tina
+
+# lunch 可能需要交互式选择，使用 expect 或直接设置环境变量
+# 方案1: 直接通过 echo 提供输入
+echo "1" | lunch v853-100ask-tina 2>/dev/null || lunch v853-100ask-tina
+
+# 验证是否成功
+if [ -z "$TARGET_PRODUCT" ]; then
+    echo -e "${YELLOW}⚠️  lunch 未完全配置，手动设置环境变量${NC}"
+    export TARGET_PRODUCT=v853-100ask
+    export TARGET_BOARD_PLATFORM=v853
+fi
 
 echo -e "${GREEN}✓ 编译环境已配置${NC}"
+echo "   TARGET_PRODUCT: $TARGET_PRODUCT"
 echo ""
 
 # ==================== 阶段 3: 修复内核配置 ====================
