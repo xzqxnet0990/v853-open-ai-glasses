@@ -423,16 +423,50 @@ deploy_adb() {
 copy_image() {
     echo -e "${GREEN}📤 复制固件镜像到主机...${NC}"
 
-    local image_path="/opt/v853_sdk/out/v853/image/boot.img"
     local output_dir="$PROJECT_DIR/output"
-
     mkdir -p "$output_dir"
 
-    docker cp "$CONTAINER_NAME:$image_path" "$output_dir/" 2>/dev/null || \
-        echo -e "${YELLOW}⚠️  未找到固件镜像，请先编译固件${NC}"
+    # 可能的镜像路径列表
+    local image_paths=(
+        "/opt/v853_sdk/out/v853/100ask/image"
+        "/opt/v853_sdk/out/v853/vision/image"
+        "/opt/v853_sdk/out/v853/image"
+    )
 
-    if [ -f "$output_dir/boot.img" ]; then
-        echo -e "${GREEN}✅ 固件已复制到: $output_dir/boot.img${NC}"
+    local found=false
+
+    # 遍历所有可能的路径
+    for base_path in "${image_paths[@]}"; do
+        echo -e "${CYAN}检查路径: $base_path${NC}"
+
+        # 查找该路径下的所有 .img 和 .fex 文件
+        compose_cmd exec v853-dev bash -c "
+            if [ -d '$base_path' ]; then
+                find '$base_path' -maxdepth 1 \( -name '*.img' -o -name '*.fex' \) -type f
+            fi
+        " 2>/dev/null | while read -r remote_file; do
+            if [ -n "$remote_file" ]; then
+                local filename=$(basename "$remote_file")
+                echo -e "${BLUE}正在复制: $filename${NC}"
+                docker cp "$CONTAINER_NAME:$remote_file" "$output_dir/" 2>/dev/null && \
+                    echo -e "${GREEN}  ✓ $filename${NC}" && \
+                    found=true
+            fi
+        done
+    done
+
+    # 显示复制结果
+    if [ -d "$output_dir" ] && [ "$(ls -A $output_dir 2>/dev/null)" ]; then
+        echo ""
+        echo -e "${GREEN}✅ 固件文件已复制到: $output_dir/${NC}"
+        ls -lh "$output_dir"/*.img "$output_dir"/*.fex 2>/dev/null || true
+    else
+        echo ""
+        echo -e "${YELLOW}⚠️  未找到固件镜像文件${NC}"
+        echo -e "${CYAN}提示: 检查以下位置:${NC}"
+        compose_cmd exec v853-dev bash -c "
+            find /opt/v853_sdk/out -name '*.img' -o -name '*.fex' 2>/dev/null | head -10
+        " || true
     fi
 }
 
