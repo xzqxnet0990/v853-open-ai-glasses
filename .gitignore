@@ -1,0 +1,32 @@
+# Build artifacts
+build/
+output/
+*.pyc
+__pycache__/
+
+# IDE and editors
+.vscode/
+.idea/
+*~
+.DS_Store
+*.code-workspace
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+*.pid
+SDK/aiglass_dev_env/
+third_party/ffmpeg-rockchip/ffmpeg-rockchip/
+SDK/aiglass_dev_env.tgz
+hardware/OSSG_v0p5/
+
+# BSP build artifacts
+src/bsp/build/
+src/bsp/lib/
+src/bsp/examples/gpio_test
+src/bsp/examples/*.o
+SDK/tina-v853-open
+hardware/OSSG_v0p5/
+hardware/RV1106_v0.6
+hardware/RV1109_v1.0

@@ -1,0 +1,7 @@
+/workspace/src/display_lvgl/build-v853/CMakeFiles/install/strip.dir
+/workspace/src/display_lvgl/build-v853/CMakeFiles/install/local.dir
+/workspace/src/display_lvgl/build-v853/CMakeFiles/install.dir
+/workspace/src/display_lvgl/build-v853/CMakeFiles/list_install_components.dir
+/workspace/src/display_lvgl/build-v853/CMakeFiles/rebuild_cache.dir
+/workspace/src/display_lvgl/build-v853/CMakeFiles/edit_cache.dir
+/workspace/src/display_lvgl/build-v853/CMakeFiles/AIGlassesDisplayLVGL.dir

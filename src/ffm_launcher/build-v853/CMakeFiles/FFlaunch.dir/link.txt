@@ -1,0 +1,1 @@
+/workspace/SDK/tina-v853-open/prebuilt/rootfsbuilt/arm/toolchain-sunxi-musl-gcc-830/toolchain/bin/arm-openwrt-linux-g++ --sysroot=/workspace/SDK/tina-v853-open/prebuilt/rootfsbuilt/arm/toolchain-sunxi-musl-gcc-830/toolchain  -march=armv7-a -mfpu=neon -mfloat-abi=hard -O3 -DNDEBUG   CMakeFiles/FFlaunch.dir/launch.cpp.o  -o FFlaunch 

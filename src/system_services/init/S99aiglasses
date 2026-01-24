@@ -1,0 +1,180 @@
+#!/bin/sh
+# AI Glasses System Services Init Script
+# V853 Platform
+
+### BEGIN INIT INFO
+# Provides:          ai-glasses
+# Required-Start:    $local_fs $network
+# Required-Stop:     $local_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: AI Glasses System Services
+# Description:       Start/stop AI Glasses core services
+### END INIT INFO
+
+NAME="ai-glasses"
+PIDFILE="/var/run/ai-glasses.pid"
+LOGFILE="/var/log/ai-glasses.log"
+
+# 服务二进制路径
+AI_CORE="/usr/bin/ai-core"
+POWER_MANAGER="/usr/bin/power_manager"
+LOG_DAEMON="/usr/bin/log_daemon"
+
+# 服务PID文件
+AI_CORE_PID="/var/run/ai-core.pid"
+POWER_MANAGER_PID="/var/run/power_manager.pid"
+LOG_DAEMON_PID="/var/run/log_daemon.pid"
+
+# 颜色定义
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+# 日志函数
+log_info() {
+    echo -e "${GREEN}[INFO]${NC} $1" | tee -a "$LOGFILE"
+}
+
+log_warn() {
+    echo -e "${YELLOW}[WARN]${NC} $1" | tee -a "$LOGFILE"
+}
+
+log_error() {
+    echo -e "${RED}[ERROR]${NC} $1" | tee -a "$LOGFILE"
+}
+
+# 启动服务
+start() {
+    log_info "Starting AI Glasses services..."
+
+    # 1. 启动日志守护进程
+    if [ -x "$LOG_DAEMON" ]; then
+        log_info "Starting log daemon..."
+        $LOG_DAEMON --log-dir=/var/log/ai_glasses --max-size=100M &
+        echo $! > "$LOG_DAEMON_PID"
+        sleep 1
+    else
+        log_warn "Log daemon not found, skipping..."
+    fi
+
+    # 2. 启动核心服务 (GPIO + Camera + Audio)
+    if [ -x "$AI_CORE" ]; then
+        log_info "Starting ai-core service..."
+        $AI_CORE --enable-gpio --enable-camera --enable-audio \
+                 --log-level=INFO &
+        echo $! > "$AI_CORE_PID"
+        sleep 2
+    else
+        log_error "ai-core not found at $AI_CORE"
+        return 1
+    fi
+
+    # 3. 启动电源管理器
+    if [ -x "$POWER_MANAGER" ]; then
+        log_info "Starting power manager..."
+        $POWER_MANAGER --check-interval=5 &
+        echo $! > "$POWER_MANAGER_PID"
+        sleep 1
+    else
+        log_warn "Power manager not found, skipping..."
+    fi
+
+    # 记录主PID
+    echo $! > "$PIDFILE"
+
+    log_info "AI Glasses services started successfully"
+    return 0
+}
+
+# 停止服务
+stop() {
+    log_info "Stopping AI Glasses services..."
+
+    # 停止电源管理器
+    if [ -f "$POWER_MANAGER_PID" ]; then
+        log_info "Stopping power manager..."
+        kill $(cat "$POWER_MANAGER_PID") 2>/dev/null
+        rm -f "$POWER_MANAGER_PID"
+    fi
+
+    # 停止核心服务
+    if [ -f "$AI_CORE_PID" ]; then
+        log_info "Stopping ai-core service..."
+        kill $(cat "$AI_CORE_PID") 2>/dev/null
+        rm -f "$AI_CORE_PID"
+    fi
+
+    # 停止日志守护进程
+    if [ -f "$LOG_DAEMON_PID" ]; then
+        log_info "Stopping log daemon..."
+        kill $(cat "$LOG_DAEMON_PID") 2>/dev/null
+        rm -f "$LOG_DAEMON_PID"
+    fi
+
+    # 清理共享内存
+    rm -f /dev/shm/ai_* 2>/dev/null
+    rm -f /tmp/ai_* 2>/dev/null
+
+    rm -f "$PIDFILE"
+    log_info "AI Glasses services stopped"
+    return 0
+}
+
+# 重启服务
+restart() {
+    stop
+    sleep 2
+    start
+}
+
+# 查看状态
+status() {
+    echo "AI Glasses Services Status:"
+    echo "============================"
+
+    # 检查ai-core
+    if [ -f "$AI_CORE_PID" ] && kill -0 $(cat "$AI_CORE_PID") 2>/dev/null; then
+        echo -e "${GREEN}● ai-core:        Running (PID: $(cat "$AI_CORE_PID"))${NC}"
+    else
+        echo -e "${RED}○ ai-core:        Stopped${NC}"
+    fi
+
+    # 检查power_manager
+    if [ -f "$POWER_MANAGER_PID" ] && kill -0 $(cat "$POWER_MANAGER_PID") 2>/dev/null; then
+        echo -e "${GREEN}● power_manager:  Running (PID: $(cat "$POWER_MANAGER_PID"))${NC}"
+    else
+        echo -e "${RED}○ power_manager:  Stopped${NC}"
+    fi
+
+    # 检查log_daemon
+    if [ -f "$LOG_DAEMON_PID" ] && kill -0 $(cat "$LOG_DAEMON_PID") 2>/dev/null; then
+        echo -e "${GREEN}● log_daemon:     Running (PID: $(cat "$LOG_DAEMON_PID"))${NC}"
+    else
+        echo -e "${RED}○ log_daemon:     Stopped${NC}"
+    fi
+
+    echo ""
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    status)
+        status
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
+
+exit $?

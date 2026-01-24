@@ -1,0 +1,34 @@
+config PACKAGE_ai-glass-display
+	bool "ai-glass-display"
+	default y
+	depends on PACKAGE_ai-glass-sdk
+	select PACKAGE_qt5-core
+	select PACKAGE_qt5-gui
+	select PACKAGE_qt5-widgets
+	select PACKAGE_fontconfig
+	help
+	  Qt5-based display application for AI Glasses.
+
+	  Requirements:
+	  - Qt5 (Qt5Base, Qt5Widgets)
+	  - AI Glass SDK
+	  - MIPI DSI display driver
+	  - LinuxFB or EGLFS backend
+
+	  Display: 1280x720@60Hz MIPI DSI
+	  Version: 2.0.0
+
+config AI_GLASS_DISPLAY_EGLFS
+	bool "Enable EGLFS hardware acceleration"
+	depends on PACKAGE_ai-glass-display
+	default y
+	help
+	  Use EGLFS backend for hardware-accelerated rendering.
+	  Requires DRM/KMS support.
+
+config AI_GLASS_DISPLAY_AUTO_START
+	bool "Auto-start display on boot"
+	depends on PACKAGE_ai-glass-display
+	default y
+	help
+	  Automatically start display application at boot via init script.

@@ -1,0 +1,12 @@
+AI Glass SDK Version: v2.0.0-v853
+Build Date: 2026-01-23 17:45:00
+Platform: Allwinner V853
+Architecture: ARM (musl)
+Target: DongshanPI-AICT V853 Development Board
+
+Changes from v1.1 (RV1109):
+- Ported to Allwinner V853 platform
+- Updated toolchain to arm-openwrt-linux-gcc
+- Adapted to V853 hardware (V4L2, GPIO sysfs, ALSA)
+- Added Docker development environment support
+- Enhanced build system with CMake

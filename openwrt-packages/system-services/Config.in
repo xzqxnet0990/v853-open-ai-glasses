@@ -1,0 +1,45 @@
+config PACKAGE_ai-glass-services
+	bool "ai-glass-services"
+	default y
+	depends on PACKAGE_ai-glass-sdk
+	select PACKAGE_libpthread
+	select PACKAGE_librt
+	help
+	  AI Glasses system services for V853 platform.
+
+	  Core services:
+	  - ai-core: Hardware abstraction service
+	  - power_manager: Power monitoring
+	  - log_daemon: Log collection
+
+	  Version: 2.0.0
+
+config AI_GLASS_SERVICE_AI_CORE
+	bool "Enable ai-core service"
+	depends on PACKAGE_ai-glass-services
+	default y
+	help
+	  Core hardware service providing:
+	  - GPIO event monitoring and distribution
+	  - Camera capture service (V4L2)
+	  - Audio playback control (ALSA)
+
+config AI_GLASS_SERVICE_POWER_MANAGER
+	bool "Enable power_manager service"
+	depends on PACKAGE_ai-glass-services
+	default y
+	help
+	  Power monitoring daemon:
+	  - Dual power source monitoring (12V + Battery)
+	  - Low battery alerts
+	  - Power state management
+
+config AI_GLASS_SERVICE_LOG_DAEMON
+	bool "Enable log_daemon service"
+	depends on PACKAGE_ai-glass-services
+	default y
+	help
+	  System log collection daemon:
+	  - Multi-process log aggregation
+	  - Log rotation and cleanup
+	  - Remote syslog support

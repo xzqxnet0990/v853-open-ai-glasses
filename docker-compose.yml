@@ -1,0 +1,72 @@
+services:
+  v853-dev:
+    # 强制使用 x86_64 平台 (V853 工具链需要)
+    platform: linux/amd64
+
+    # 使用本地Dockerfile构建镜像
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aiglasses/v853-dev:v1.0.0
+    container_name: v853_ai_glasses_dev
+    hostname: v853-aiglasses-dev
+
+    # 挂载目录
+    volumes:
+      # 项目源码目录 (当前目录 -> /workspace)
+      - .:/workspace
+
+      # V853 SDK目录 (tina-v853-open -> /opt/v853_sdk)
+      - ./SDK/tina-v853-open:/opt/v853_sdk
+
+      # 保留编译缓存和输出 (可选)
+      - v853-build-cache:/workspace/.build-cache
+      - v853-output:/workspace/output
+
+    # 工作目录
+    working_dir: /workspace
+
+    # 保持容器运行
+    tty: true
+    stdin_open: true
+
+    # 使用bash作为默认shell
+    command: bash -l
+
+    # 环境变量
+    environment:
+      - LANG=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+      - TZ=Asia/Shanghai
+      # V853 SDK路径
+      - V853_SDK_PATH=/opt/v853_sdk
+      # 工具链路径 (使用实际存在的路径)
+      - TOOLCHAIN_PATH=/opt/v853_sdk/prebuilt/rootfsbuilt/arm/toolchain-sunxi-musl-gcc-830/toolchain
+      # OpenWrt 工具链必需的环境变量
+      - STAGING_DIR=/opt/v853_sdk/prebuilt/rootfsbuilt/arm/toolchain-sunxi-musl-gcc-830/toolchain
+      # Buildroot编译需要 (允许root运行configure)
+      - FORCE_UNSAFE_CONFIGURE=1
+      # PATH - 不继承主机PATH，使用干净的容器PATH
+      - PATH=/opt/v853_sdk/prebuilt/rootfsbuilt/arm/toolchain-sunxi-musl-gcc-830/toolchain/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+    # 网络模式 (如果需要访问主机网络)
+    # network_mode: host
+
+    # 特权模式 (如果需要访问硬件设备，如USB烧录器)
+    privileged: true
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+
+    # 资源限制 (可选)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '4'
+    #       memory: 8G
+
+# 持久化卷
+volumes:
+  v853-build-cache:
+    driver: local
+  v853-output:
+    driver: local

@@ -1,0 +1,3 @@
+/workspace/src/touchpad_manager/build-v853/CMakeFiles/rebuild_cache.dir
+/workspace/src/touchpad_manager/build-v853/CMakeFiles/edit_cache.dir
+/workspace/src/touchpad_manager/build-v853/CMakeFiles/touchpad_manager.dir

@@ -1,0 +1,25 @@
+config PACKAGE_ai-glass-sdk
+	bool "ai-glass-sdk"
+	default y
+	select PACKAGE_libpthread
+	select PACKAGE_librt
+	help
+	  AI Glass SDK adapter layer for V853 platform.
+
+	  This package provides hardware abstraction APIs for:
+	  - GPIO event monitoring via sysfs
+	  - V4L2 camera capture (NV12/JPEG)
+	  - ALSA audio playback
+
+	  Version: 2.0.0
+	  Platform: Allwinner V853
+
+config AI_GLASS_SDK_EXAMPLES
+	bool "Build SDK example programs"
+	depends on PACKAGE_ai-glass-sdk
+	default n
+	help
+	  Build example test programs:
+	  - camera_test: Test V4L2 camera capture
+	  - audio_test: Test ALSA audio playback
+	  - gpio_test: Test GPIO event monitoring

@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/workspace/src/touchpad_manager/launch.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+unistd.h
+-
+pthread.h
+-
+fcntl.h
+-
+errno.h
+-
+sys/mman.h
+-
+sys/stat.h
+-
+semaphore.h
+-
+signal.h
+-
+sys/wait.h
+-
+time.h
+-
+ifaddrs.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+net/if.h
+-
+
