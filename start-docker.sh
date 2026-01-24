@@ -335,8 +335,8 @@ build_firmware() {
 
         echo ''
         echo '${GREEN}✅ 固件编译完成！${NC}'
-        echo '${CYAN}输出目录: /opt/v853_sdk/out/v853/image/${NC}'
-        ls -lh /opt/v853_sdk/out/v853/image/*.img 2>/dev/null || true
+        echo '${CYAN}输出目录: /opt/v853_sdk/out/v853/100ask/image/${NC}'
+        ls -lh /opt/v853_sdk/out/v853/100ask/image/*.img /opt/v853_sdk/out/v853/100ask/image/*.fex 2>/dev/null || true
     "
 
     echo ""
