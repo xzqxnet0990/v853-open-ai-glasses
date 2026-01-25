@@ -498,8 +498,8 @@ show_info() {
         echo '${CYAN}=== 编译状态 ===${NC}'
         [ -f /workspace/src/sdk_adapter/build/libai_glass_sdk_v853.so ] && \
             echo '  ✓ SDK适配层已编译' || echo '  ✗ SDK适配层未编译'
-        [ -f /workspace/src/display_qt/build-v853/AIGlassesDisplay_V853 ] && \
-            echo '  ✓ Qt应用已编译' || echo '  ✗ Qt应用未编译'
+        [ -f /workspace/src/display_lvgl/build-v853/AIGlassesDisplayLVGL ] && \
+            echo '  ✓ LVGL应用已编译' || echo '  ✗ LVGL应用未编译'
     "
 }
 

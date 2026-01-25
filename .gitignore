@@ -1,6 +1,10 @@
 # Build artifacts
 build/
+build-*/
 output/
+*.o
+*.so
+*.a
 *.pyc
 __pycache__/
 

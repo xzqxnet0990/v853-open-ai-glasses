@@ -84,15 +84,8 @@ if [ ! -d "$PROJECT_ROOT/src/sdk_adapter" ]; then
     exit 1
 fi
 
-if [ ! -d "$PROJECT_ROOT/src/system_services" ]; then
-    print_warn "找不到系统服务源代码: $PROJECT_ROOT/src/system_services"
-    print_warn "system-services 包可能无法编译"
-fi
-
-if [ ! -d "$PROJECT_ROOT/src/display_qt" ]; then
-    print_warn "找不到显示应用源代码: $PROJECT_ROOT/src/display_qt"
-    print_warn "display-qt 包可能无法编译"
-fi
+# system_services 和 display_qt 已移除/归档
+# 保留此注释以记录历史
 
 print_info "✓ 源代码目录检查完成"
 

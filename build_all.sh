@@ -44,7 +44,6 @@ clean_all() {
     echo -e "${YELLOW}清理所有编译输出...${NC}"
 
     rm -rf src/sdk_adapter/build
-    rm -rf src/display_qt/build-v853
     rm -rf src/display_lvgl/build-v853
     rm -rf src/ffm_launcher/build-v853
     rm -rf src/touchpad_manager/build-v853
@@ -103,11 +102,8 @@ build_display_lvgl() {
     echo ""
 }
 
-# 编译Qt显示应用 (已弃用，使用LVGL代替)
-build_display_qt() {
-    echo -e "${YELLOW}[SKIP] Qt显示应用 (已弃用，使用LVGL代替)${NC}"
-    echo ""
-}
+# Qt显示应用已移除，使用LVGL代替
+# 保留此注释以记录历史
 
 # 编译FFmpeg启动器
 build_ffm_launcher() {
