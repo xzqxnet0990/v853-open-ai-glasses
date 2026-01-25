@@ -62,9 +62,11 @@ ${CYAN}🧹 清理命令:${NC}
   ${GREEN}clean-cache${NC}     清理Docker缓存
 
 ${CYAN}📦 部署命令:${NC}
-  ${GREEN}deploy-ssh${NC}      通过SSH部署到设备
-  ${GREEN}deploy-adb${NC}      通过ADB部署到设备
-  ${GREEN}copy-image${NC}      复制固件镜像到主机
+  ${GREEN}deploy-ssh <IP>${NC}      通过SSH部署到设备 /usr/bin
+  ${GREEN}deploy-adb${NC}            通过ADB部署到设备 /usr/bin
+  ${GREEN}deploy-adb-udisk${NC}      通过ADB部署到UDISK分区 (推荐)
+  ${GREEN}copy-from-docker${NC}      从容器复制编译产物到output/
+  ${GREEN}copy-image${NC}            复制固件镜像到主机
 
 ${CYAN}🛠️  开发辅助:${NC}
   ${GREEN}info${NC}            显示环境信息
@@ -84,8 +86,15 @@ ${CYAN}💡 示例:${NC}
   ${BLUE}# 编译固件镜像${NC}
   $0 build-firmware
 
-  ${BLUE}# 部署到设备${NC}
+  ${BLUE}# 部署到设备 (SSH)${NC}
   $0 deploy-ssh 192.168.1.100
+
+  ${BLUE}# 部署到设备 (ADB - 推荐)${NC}
+  $0 copy-from-docker           # 先复制到主机
+  $0 deploy-adb-udisk           # 再通过ADB部署
+
+  ${BLUE}# 快速部署流程${NC}
+  $0 build-all && $0 copy-from-docker && $0 deploy-adb-udisk
 
 ${YELLOW}⚠️  注意事项:${NC}
   1. 首次启动会自动构建Docker镜像（需要几分钟）
@@ -94,9 +103,10 @@ ${YELLOW}⚠️  注意事项:${NC}
   4. 编译产物会保存在Docker volume中，不会占用主机空间
 
 ${CYAN}📚 更多信息:${NC}
-  README.md          - 项目概述
-  QUICK_START.md     - 快速入门指南
-  PROJECT_STATUS.md  - 开发进度
+  README.md           - 项目概述
+  QUICKSTART_ADB.md   - ADB 部署快速入门
+  CLAUDE.md           - 完整开发指南
+  scripts/README.md   - 所有脚本说明
 
 EOF
 }
@@ -419,6 +429,23 @@ deploy_adb() {
     "
 }
 
+# 从容器复制编译产物到主机
+copy_from_docker() {
+    echo -e "${GREEN}📤 从容器复制编译产物...${NC}"
+    ensure_running
+
+    local args="$1"
+    bash "$PROJECT_DIR/scripts/copy_from_docker.sh" $args
+}
+
+# ADB 部署到 UDISK 分区
+deploy_adb_udisk() {
+    echo -e "${GREEN}📦 ADB 部署到 UDISK 分区...${NC}"
+
+    local args="$1"
+    bash "$PROJECT_DIR/scripts/deploy_adb_udisk.sh" $args
+}
+
 # 复制固件镜像
 copy_image() {
     echo -e "${GREEN}📤 复制固件镜像到主机...${NC}"
@@ -597,6 +624,12 @@ main() {
             ;;
         deploy-adb)
             deploy_adb
+            ;;
+        deploy-adb-udisk)
+            deploy_adb_udisk "$2"
+            ;;
+        copy-from-docker)
+            copy_from_docker "$2"
             ;;
         copy-image)
             copy_image

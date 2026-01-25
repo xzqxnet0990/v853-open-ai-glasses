@@ -67,9 +67,54 @@ This directory contains the core build and deployment scripts for V853 AI Glasse
 
 ---
 
+### copy_from_docker.sh
+**从 Docker 容器复制编译产物到 output/ 目录**
+
+```bash
+# 复制所有文件
+./scripts/copy_from_docker.sh
+
+# 只复制应用程序
+./scripts/copy_from_docker.sh --app
+
+# 只复制 SDK 库
+./scripts/copy_from_docker.sh --sdk
+```
+
+**用途**:
+- 在容器内编译后，将二进制文件复制到主机
+- 自动创建 output/ 目录
+- 检查容器是否运行
+
+---
+
+### deploy_adb_udisk.sh
+**通过 ADB 部署到 UDISK 分区（推荐）**
+
+```bash
+# 部署所有文件
+./scripts/deploy_adb_udisk.sh
+
+# 只部署应用程序（跳过库文件）
+./scripts/deploy_adb_udisk.sh --app-only
+```
+
+**优势**:
+- 部署到 UDISK 分区（持久化存储，6.9GB 空间）
+- 解决 overlayfs 文件系统不一致问题（串口和 ADB 看到不同内容）
+- 自动设置正确的权限
+- 提供详细的运行指令
+
+**使用场景**:
+- 当设备 SSH 不可用时
+- overlayfs 系统导致 SSH 部署失败
+- USB 连接比网络更方便
+
+---
+
 ## Typical Workflow
 
-### Development Loop
+### Development Loop (SSH 部署)
 
 ```bash
 # 1. Enter Docker container (on host)
@@ -89,6 +134,48 @@ exit
 # 6. Test on device
 ssh root@192.168.1.100
 /usr/bin/AIGlassesDisplayLVGL
+```
+
+### Development Loop (ADB 部署 - 推荐) ⭐
+
+```bash
+# 1. Enter Docker container (on host)
+./start-docker.sh shell
+
+# 2. Build (inside container)
+./scripts/build_all.sh
+exit
+
+# 3. Copy from container to host
+./scripts/copy_from_docker.sh
+
+# 4. Deploy via ADB
+./scripts/deploy_adb_udisk.sh
+
+# 5. Test on device (via serial or ADB shell)
+# Serial:
+export LD_LIBRARY_PATH=/mnt/UDISK/aiglasses/lib:$LD_LIBRARY_PATH
+/mnt/UDISK/aiglasses/bin/AIGlassesDisplayLVGL
+
+# Or via ADB:
+adb shell "export LD_LIBRARY_PATH=/mnt/UDISK/aiglasses/lib:\$LD_LIBRARY_PATH; /mnt/UDISK/aiglasses/bin/AIGlassesDisplayLVGL"
+```
+
+### Quick Update (只改了一个应用)
+
+```bash
+# 1. Rebuild just one component (in container)
+./start-docker.sh shell
+cd /workspace/src/display_lvgl/build-v853
+make
+exit
+
+# 2. Copy and deploy
+./scripts/copy_from_docker.sh --app
+./scripts/deploy_adb_udisk.sh --app-only
+
+# 3. Test
+# (在串口或 ADB shell 运行)
 ```
 
 ---

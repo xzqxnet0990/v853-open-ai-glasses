@@ -91,10 +91,14 @@ int main(int argc, char *argv[])
 
     /* Initialize input device driver */
     printf("[Main] Initializing input device driver...\n");
+    printf("[Main] Warning: Input device initialization temporarily disabled\n");
+    printf("[Main] Reason: GPIO event system not yet available on this hardware\n");
+    /* TODO: Enable when GPIO event system is ready
     if (lv_port_indev_init() != 0) {
         fprintf(stderr, "[Main] Warning: Failed to initialize input device\n");
-        /* Continue without input - can still display UI */
+        // Continue without input - can still display UI
     }
+    */
 
     /* Initialize UI */
     printf("[Main] Initializing user interface...\n");
