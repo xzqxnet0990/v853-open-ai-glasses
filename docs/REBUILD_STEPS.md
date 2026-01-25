@@ -99,7 +99,7 @@ make all
 cd /workspace
 
 # 编译所有
-./build_all.sh
+./scripts/build_all.sh
 ```
 
 ### 方式3: 逐个编译

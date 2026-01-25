@@ -52,7 +52,7 @@ This is a lightweight alternative to the Qt5-based display application, designed
 2. AI Glass SDK compiled:
    ```bash
    cd /workspace
-   ./build_all.sh sdk
+   ./scripts/build_all.sh sdk
    ```
 
 ### Compilation
@@ -183,7 +183,7 @@ Edit `drivers/lv_port_indev.c` to configure GPIO buttons:
 - **Fix**: Build SDK first:
   ```bash
   cd /workspace
-  ./build_all.sh sdk
+  ./scripts/build_all.sh sdk
   ```
 
 ## Performance

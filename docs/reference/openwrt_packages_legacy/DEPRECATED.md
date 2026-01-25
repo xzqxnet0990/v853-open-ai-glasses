@@ -32,11 +32,11 @@
 ```bash
 # 编译应用层
 ./start-docker.sh shell
-./build_all.sh
+./scripts/build_all.sh
 exit
 
 # 部署到设备
-./deploy.sh 192.168.1.100
+./scripts/deploy.sh 192.168.1.100
 ```
 
 **优势**：
@@ -57,4 +57,4 @@ exit
 ---
 
 **弃用时间**: 2026-01-25
-**替代方案**: `build_all.sh` + `deploy.sh`
+**替代方案**: `scripts/build_all.sh` + `scripts/deploy.sh`

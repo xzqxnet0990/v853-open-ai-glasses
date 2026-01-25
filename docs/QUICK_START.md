@@ -73,7 +73,7 @@ cd v853-ai-glasses
 make all
 
 # 方式2: 使用脚本
-./build_all.sh
+./scripts/build_all.sh
 
 # 预计编译时间: 5-10分钟
 ```
@@ -108,7 +108,7 @@ ping 192.168.1.100
 make deploy-ssh IP=192.168.1.100
 
 # 或使用脚本
-./deploy.sh 192.168.1.100
+./scripts/deploy.sh 192.168.1.100
 ```
 
 #### 方式B: 通过ADB
@@ -120,7 +120,7 @@ adb devices
 make deploy-adb
 
 # 或使用脚本
-./deploy.sh adb
+./scripts/deploy.sh adb
 ```
 
 ### 步骤3: 运行应用
@@ -148,7 +148,7 @@ logcat | grep V853
 make sdk
 
 # 或
-./build_all.sh sdk
+./scripts/build_all.sh sdk
 ```
 
 ### 只编译应用层
@@ -156,7 +156,7 @@ make sdk
 make app
 
 # 或
-./build_all.sh app
+./scripts/build_all.sh app
 ```
 
 ### 清理编译输出
@@ -164,7 +164,7 @@ make app
 make clean
 
 # 或
-./build_all.sh clean
+./scripts/build_all.sh clean
 ```
 
 ---
@@ -305,8 +305,8 @@ source /etc/profile
 ## 🆘 获取帮助
 
 - **查看Makefile帮助**: `make help`
-- **查看脚本帮助**: `./build_all.sh`
-- **查看部署帮助**: `./deploy.sh`
+- **查看脚本帮助**: `./scripts/build_all.sh`
+- **查看部署帮助**: `./scripts/deploy.sh`
 
 ---
 

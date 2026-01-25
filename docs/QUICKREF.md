@@ -42,7 +42,7 @@ make sdk                       # (容器内) 只编译SDK
 ```bash
 ./start-docker.sh deploy-ssh 192.168.1.100  # SSH部署
 ./start-docker.sh deploy-adb                # ADB部署
-./deploy.sh 192.168.1.100                   # (本地) SSH部署
+./scripts/deploy.sh 192.168.1.100                   # (本地) SSH部署
 ```
 
 ### 信息

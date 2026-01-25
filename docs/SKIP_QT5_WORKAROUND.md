@@ -10,7 +10,7 @@
 
 ### 修改的文件
 
-#### `build_all.sh`
+#### `scripts/build_all.sh`
 
 **修改1**: 在`app`模式下跳过display-qt (第174-180行)
 ```bash
@@ -64,7 +64,7 @@ cd /workspace
 make app
 
 # 或使用build_all.sh
-./build_all.sh app
+./scripts/build_all.sh app
 ```
 
 ### 预期输出

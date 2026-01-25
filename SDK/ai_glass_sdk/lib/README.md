@@ -173,7 +173,7 @@ arm-openwrt-linux-readelf -d libai_glass_sdk.so
 ```bash
 # 使用项目部署脚本
 cd v853-ai-glasses
-./deploy.sh 192.168.1.100
+./scripts/deploy.sh 192.168.1.100
 
 # 或手动部署
 scp SDK/ai_glass_sdk/lib/libai_glass_sdk.so root@192.168.1.100:/usr/lib/
@@ -253,7 +253,7 @@ make clean && make
 
 # 4. 重新部署
 cd ../../../
-./deploy.sh 192.168.1.100
+./scripts/deploy.sh 192.168.1.100
 ```
 
 ## 🐛 故障排查

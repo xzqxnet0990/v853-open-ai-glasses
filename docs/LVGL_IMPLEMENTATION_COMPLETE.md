@@ -152,7 +152,7 @@ cd /workspace
 ### Step 2: Build Everything
 
 ```bash
-./build_all.sh
+./scripts/build_all.sh
 ```
 
 Or build just LVGL display:
@@ -208,7 +208,7 @@ ls $V853_SDK_PATH/platform/thirdparty/gui/lvgl-8/lvgl/src/
 **Solution**:
 ```bash
 cd /workspace
-./build_all.sh sdk
+./scripts/build_all.sh sdk
 ```
 
 ### Issue 3: Compiler Not Found
@@ -335,7 +335,7 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE=../toolchain-v853.cmake -DCMAKE_BUILD_TYPE=Relea
 
 ### Ready for Testing
 
-- ⏳ Compilation (next step - run `./build_all.sh`)
+- ⏳ Compilation (next step - run `./scripts/build_all.sh`)
 - ⏳ Hardware deployment
 - ⏳ Functional testing on V853 device
 
@@ -379,7 +379,7 @@ docker exec -it v853_ai_glasses_dev bash
 
 # Build everything
 cd /workspace
-./build_all.sh
+./scripts/build_all.sh
 
 # Check output
 ls -lh src/display_lvgl/build-v853/AIGlassesDisplayLVGL

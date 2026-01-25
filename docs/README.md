@@ -29,7 +29,7 @@
 make all
 
 # 4. 部署到设备
-./deploy.sh 192.168.1.100
+./scripts/deploy.sh 192.168.1.100
 ```
 
 **详细文档**: [DOCKER_GUIDE.md](DOCKER_GUIDE.md)
@@ -44,7 +44,7 @@ export PATH=/path/to/tina-v853-open/prebuilt/gcc/linux-x86/arm/toolchain-sunxi-m
 make all
 
 # 3. 部署
-./deploy.sh 192.168.1.100
+./scripts/deploy.sh 192.168.1.100
 ```
 
 **详细文档**: [QUICK_START.md](QUICK_START.md)

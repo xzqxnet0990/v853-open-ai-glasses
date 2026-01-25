@@ -37,7 +37,7 @@ make app
 
 或者：
 ```bash
-./build_all.sh app
+./scripts/build_all.sh app
 ```
 
 ### 4. 预期输出

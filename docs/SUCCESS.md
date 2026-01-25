@@ -132,7 +132,7 @@ make touchpad
 
 ```bash
 cd /workspace
-./build_all.sh app
+./scripts/build_all.sh app
 ```
 
 ---

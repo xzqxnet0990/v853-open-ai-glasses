@@ -64,7 +64,7 @@ app: ffm-launcher touchpad
 
 2. **或者修改build_all.sh**
 
-编辑 `build_all.sh`，注释掉Qt编译:
+编辑 `scripts/build_all.sh`，注释掉Qt编译:
 ```bash
 # 原来:
 build_display_qt
@@ -245,7 +245,7 @@ touchpad: sdk
 
 **选项1**: 修改 `Makefile`（如上所示）
 
-**选项2**: 修改 `build_all.sh`，注释掉 `build_display_qt` 调用
+**选项2**: 修改 `scripts/build_all.sh`，注释掉 `build_display_qt` 调用
 
 ### 步骤2: 重新编译
 

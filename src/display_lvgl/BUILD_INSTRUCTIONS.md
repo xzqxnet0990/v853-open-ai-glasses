@@ -31,7 +31,7 @@ docker exec -it v853_ai_glasses_dev bash
 cd /workspace
 
 # Build all components (includes LVGL display)
-./build_all.sh
+./scripts/build_all.sh
 
 # Or build just the LVGL display
 cd src/display_lvgl
@@ -106,7 +106,7 @@ ls $V853_SDK_PATH/platform/thirdparty/gui/lvgl-8/lvgl/src/
 
 ```bash
 cd /workspace
-./build_all.sh sdk
+./scripts/build_all.sh sdk
 ```
 
 ### Compiler Not Found
@@ -145,8 +145,8 @@ which arm-openwrt-linux-gcc
 
 # Build from scratch
 cd /workspace
-./build_all.sh clean
-./build_all.sh
+./scripts/build_all.sh clean
+./scripts/build_all.sh
 ```
 
 ## Files Created

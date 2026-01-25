@@ -40,7 +40,7 @@ cd /workspace
 ./rebuild_lvgl.sh
 
 # 方法2：使用完整构建脚本
-./build_all.sh
+./scripts/build_all.sh
 
 # 方法3：手动编译
 cd src/display_lvgl

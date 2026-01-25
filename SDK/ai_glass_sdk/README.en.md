@@ -290,9 +290,9 @@ If you have code based on RV1109, migrate to V853 platform:
 ```bash
 # From project root
 cd v853-ai-glasses
-./deploy.sh 192.168.1.100  # SSH deployment
+./scripts/deploy.sh 192.168.1.100  # SSH deployment
 # or
-./deploy.sh adb            # ADB deployment
+./scripts/deploy.sh adb            # ADB deployment
 ```
 
 ### Method 2: Manual Installation

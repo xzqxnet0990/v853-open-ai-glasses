@@ -405,7 +405,7 @@ deploy_ssh() {
     ensure_running
     compose_cmd exec v853-dev bash -l -c "
         cd /workspace
-        ./deploy.sh $device_ip
+        ./scripts/deploy.sh $device_ip
     "
 }
 
@@ -415,7 +415,7 @@ deploy_adb() {
     ensure_running
     compose_cmd exec v853-dev bash -l -c "
         cd /workspace
-        ./deploy.sh adb
+        ./scripts/deploy.sh adb
     "
 }
 

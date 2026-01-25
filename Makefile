@@ -10,17 +10,17 @@ all: sdk app
 # 编译SDK适配层
 sdk:
 	@echo "编译SDK适配层..."
-	@./build_all.sh sdk
+	@./scripts/build_all.sh sdk
 
 # 编译应用层
 app:
 	@echo "编译应用层..."
-	@./build_all.sh app
+	@./scripts/build_all.sh app
 
 # 清理
 clean:
 	@echo "清理编译输出..."
-	@./build_all.sh clean
+	@./scripts/build_all.sh clean
 
 # 部署 (需要指定目标)
 deploy:
@@ -34,10 +34,10 @@ deploy-ssh:
 		echo "用法: make deploy-ssh IP=192.168.1.100"; \
 		exit 1; \
 	fi
-	@./deploy.sh $(IP)
+	@./scripts/deploy.sh $(IP)
 
 deploy-adb:
-	@./deploy.sh adb
+	@./scripts/deploy.sh adb
 
 # 帮助信息
 help:

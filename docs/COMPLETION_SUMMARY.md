@@ -134,8 +134,8 @@
 
 #### 项目级构建
 - ✅ `Makefile` - 顶层Makefile
-- ✅ `build_all.sh` - 一键编译脚本 (169行)
-- ✅ `deploy.sh` - 部署脚本 (139行)
+- ✅ `scripts/build_all.sh` - 一键编译脚本 (169行)
+- ✅ `scripts/deploy.sh` - 部署脚本 (139行)
 
 #### 组件级构建
 每个src/子目录都有:
@@ -441,7 +441,7 @@ v853-ai-glasses/
 make all
 
 # 4. 部署到设备
-./deploy.sh 192.168.1.100
+./scripts/deploy.sh 192.168.1.100
 ```
 
 ### 查看文档

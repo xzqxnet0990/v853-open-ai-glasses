@@ -42,7 +42,7 @@ All compilation must occur in a Docker container with the V853 cross-compilation
 
 ```bash
 # Build everything (SDK + all applications)
-./build_all.sh
+./scripts/build_all.sh
 
 # Build specific components
 make sdk          # Only SDK adapter layer
@@ -61,7 +61,7 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE=../toolchain-v853.cmake && make
 
 ```bash
 # Deploy all binaries
-./deploy.sh 192.168.1.100   # or ./deploy.sh adb
+./scripts/deploy.sh 192.168.1.100   # or ./scripts/deploy.sh adb
 
 # SSH into device
 ssh root@192.168.1.100
@@ -82,10 +82,10 @@ ssh root@192.168.1.100
 
 ```bash
 # Inside container
-./firmware.sh           # Interactive menu
-./firmware.sh status    # Check compilation status
-./firmware.sh kernel    # Compile kernel only
-./firmware.sh pack      # Pack firmware image
+./scripts/firmware.sh           # Interactive menu
+./scripts/firmware.sh status    # Check compilation status
+./scripts/firmware.sh kernel    # Compile kernel only
+./scripts/firmware.sh pack      # Pack firmware image
 ```
 
 ---
@@ -246,7 +246,7 @@ EOF
 **Solution**: Ensure you're in Docker container and `V853_SDK_PATH` is set
 
 **Problem**: `cannot find -lai_glass_sdk_v853`
-**Solution**: Build SDK first: `make sdk` or `./build_all.sh sdk`
+**Solution**: Build SDK first: `make sdk` or `./scripts/build_all.sh sdk`
 
 **Problem**: Kernel header errors in userspace code
 **Solution**: Check `#include` paths - use toolchain's userspace headers, not kernel headers
@@ -337,9 +337,9 @@ All peripherals use standard Linux interfaces:
 ## Important File Locations
 
 ### Build Scripts
-- `build_all.sh` - Main build orchestrator (150+ lines)
-- `deploy.sh` - Deployment script (SSH/ADB)
-- `firmware.sh` - Kernel compilation and firmware packing
+- `scripts/build_all.sh` - Main build orchestrator (150+ lines)
+- `scripts/deploy.sh` - Deployment script (SSH/ADB)
+- `scripts/firmware.sh` - Kernel compilation and firmware packing
 - `start-docker.sh` - Docker management wrapper (626 lines)
 
 ### Core Source

@@ -280,7 +280,7 @@ arm-openwrt-linux-gcc -o myapp myapp.c \
     -lai_glass_sdk -lpthread -lrt
 
 # 3. 部署到设备
-./deploy.sh 192.168.1.100
+./scripts/deploy.sh 192.168.1.100
 ```
 
 **参考文档**:
@@ -428,7 +428,7 @@ cd ../SDK/ai_glass_sdk
 make examples
 
 # 4. 部署测试
-./deploy.sh 192.168.1.100
+./scripts/deploy.sh 192.168.1.100
 ```
 
 ---

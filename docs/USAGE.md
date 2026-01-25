@@ -304,7 +304,7 @@ ssh root@192.168.1.100
 ./start-docker.sh deploy-ssh 192.168.1.100
 
 # 本地环境
-./deploy.sh 192.168.1.100
+./scripts/deploy.sh 192.168.1.100
 ```
 
 **部署文件**:
@@ -331,7 +331,7 @@ adb devices
 # 部署
 ./start-docker.sh deploy-adb
 # 或
-./deploy.sh adb
+./scripts/deploy.sh adb
 ```
 
 ### 方式3: 手动复制
@@ -431,7 +431,7 @@ docker cp v853_ai_glasses_dev:/opt/v853_sdk/out/v853/image/boot.img ./output/
 | `make sdk` | 只编译SDK适配层 |
 | `make app` | 只编译应用层 |
 | `make clean` | 清理编译产物 |
-| `./deploy.sh <IP>` | 部署到设备 |
+| `./scripts/deploy.sh <IP>` | 部署到设备 |
 | `./init_sdk_path.sh` | 初始化SDK路径 |
 
 ### 在设备上
@@ -476,7 +476,7 @@ ping 192.168.1.100
 ssh root@192.168.1.100
 
 # 3. 尝试ADB部署
-./deploy.sh adb
+./scripts/deploy.sh adb
 ```
 
 ### 运行时错误

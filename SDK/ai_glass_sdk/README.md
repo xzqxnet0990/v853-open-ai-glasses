@@ -445,9 +445,9 @@ gpio_client_subscribe(client, 233, callback, NULL);  // GPIO PH9 = 233
 ```bash
 # 从项目根目录
 cd v853-ai-glasses
-./deploy.sh 192.168.1.100  # SSH部署
+./scripts/deploy.sh 192.168.1.100  # SSH部署
 # 或
-./deploy.sh adb            # ADB部署
+./scripts/deploy.sh adb            # ADB部署
 ```
 
 ### 方式2: 手动安装
